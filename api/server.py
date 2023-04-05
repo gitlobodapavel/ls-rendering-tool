@@ -1,7 +1,7 @@
 import http.server
+import json
 import socketserver
 import re
-import time
 
 from driver import Driver
 import services
@@ -22,7 +22,8 @@ class MyHandler(Handler):
             asset_id = services.sku_to_id(sku)
 
             if not asset_id:
-                self.wfile.write(bytes(f'the {sku} product does not have a vray configurator', "utf8"))
+                # self.wfile.write(bytes(f'the {sku} product does not have a vray configurator', "utf8"))
+                self.wfile.write(bytes(json.dumps({"status": "failed", "details": f"item with sku: {sku} does not have a vray configurator"}).encode()))
                 return
 
             driver = Driver()
@@ -34,12 +35,16 @@ class MyHandler(Handler):
                 materials = services.get_materials(attributes)
                 layers = services.get_layers(attributes, services.get_composite(asset_id))
 
-                services.start_render_job(materials, layers, asset_id, services.get_stage_id(asset_id))
+                job_id = services.start_render_job(materials, layers, asset_id, services.get_stage_id(asset_id))
 
-                self.wfile.write(bytes(f'render job for {sku} started', "utf8"))
+                self.wfile.write(bytes(json.dumps({"status": "success",
+                                                   "message": "render-vray job started",
+                                                   "details": f"https://preview.threekit.com/o/livingspacessandbox/jobs/{job_id}"}).encode()))
             except Exception as e:
                 # driver.close()
-                self.wfile.write(bytes(f'server error {e}', "utf8"))
+                self.wfile.write(bytes(json.dumps({"status": "failed",
+                                                   "message": "server error",
+                                                   "details": f"{e}"}).encode()))
         else:
             super().do_GET()
 

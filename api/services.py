@@ -68,7 +68,9 @@ def start_render_job(attributes, layers, asset_id, stage_id):
 
     response = requests.post(url, json=payload, headers=headers).json()
 
-    print('job started')
+    print(response)
+
+    return response['jobId']
 
 
 def get_materials(attributes):
