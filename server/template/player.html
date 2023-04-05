@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>asyncScript</title>
+    <script id="threekit" src="https://preview.threekit.com/app/js/threekit-player.js"></script>
+</head>
+<body>
+    <div id="config" style="height: 100vh;width: 100vw;"></div>
+    <script>
+        const THREEKIT_PARAMS = {
+            threekitUrl: "https://preview.threekit.com/",
+            authToken: "71724676-e112-4c79-9f52-db10bc1dcd78",
+            assetId: "{{ asset_id }}",
+            orgId: "f6664549-58df-4a22-881e-956c5d77d349",
+        };
+
+        window
+            .threekitPlayer({
+                authToken: THREEKIT_PARAMS["authToken"],
+                el: document.getElementById("config"),
+                assetId: THREEKIT_PARAMS["assetId"],
+                // initialConfiguration: startThreeKit,
+                // showConfigurator: "true",
+                display: "image",
+            })
+            .then(async (api) => {
+                window.playerApi = api;
+                // await window.player.when('loaded');
+                // // api.tools.addTool('zoom')
+                // // await dispatch(loadConfig());
+                // window.configurator = await api.getConfigurator();
+            });
+    </script>
+</body>
+</html>
