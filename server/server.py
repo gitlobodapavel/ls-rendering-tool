@@ -21,13 +21,6 @@ class MyHandler(Handler):
             self.send_header('Content-type', 'text/html')
             self.end_headers()
             self.wfile.write(bytes(self.render_template(asset_id), "utf8"))
-        elif re.match(r'/render/(?P<sku>[a-z0-9-]+)', self.path):
-            sku = re.search(r'/render/(?P<sku>[a-z0-9-]+)', self.path).group('sku')
-            self.send_response(200)
-            self.send_header('Content-type', 'text/html')
-            self.end_headers()
-
-            self.wfile.write(bytes(f'Hello {sku}', "utf8"))
         else:
             super().do_GET()
 
