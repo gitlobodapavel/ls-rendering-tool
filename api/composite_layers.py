@@ -8,7 +8,7 @@ composite_layers = {
     'bd4be6ea-2f0c-4973-8b52-8cf091d819d0': {
         'B': '4b8f4cc0-0cfc-4b1e-97eb-b7a6864ef0b5',
         'P1': '987f40be-ee35-4216-bbf8-bd92f0837a1f',
-        'P2': 'bd4be6ea-2f0c-4973-8b52-8cf091d819d0',
+        'P2': '792ea46b-7fca-4f48-b295-56386c5a2abe',
         'P3': '6b0f66fb-4194-477b-b00f-dcfe7979f9c4'
     },
     '0d560158-a0e6-4d07-bf25-6e2f105d48ea': {
