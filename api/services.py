@@ -1,3 +1,5 @@
+import json
+
 import requests
 from tqdm import tqdm
 from openpyxl import load_workbook
@@ -158,3 +160,30 @@ def get_stage_id(asset_id):
     response = requests.get(url, headers=headers).json()
 
     return response['defaultStageId']
+
+
+def save_job(job_id, sku, asset_id):
+    job = {
+        f"{sku}": {
+            "job_id": f"{job_id}",
+            "item_id": f"{asset_id}"
+        }
+    }
+
+    with open('jobs.json', 'r') as f:
+        data = json.load(f)
+
+    data[sku] = {'job_id': f'{job_id}', 'asset_id': f'{asset_id}'}
+
+    with open('jobs.json', 'w') as f:
+        json.dump(data, f)
+
+
+def read_job(sku):
+    with open('jobs.json', 'r') as f:
+        data = json.load(f)
+
+    if sku in data:
+        return data[sku]
+    else:
+        return False
